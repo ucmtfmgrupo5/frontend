@@ -1,0 +1,77 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div *ngIf="formReady">
+            <form>
+                <div class="row">
+                    <div class="col-md-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Model</mat-label>
+                            <mat-select (change)="onModelSelect($event)" [(value)]="selected">
+                                <mat-option *ngFor="let model of modelCombo" [value]="model.value">
+                                    {{model.viewValue}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <button (click)="search()" class="btn btn-danger">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="tableReady">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h2 class="card-title ">Predictions</h2>
+                            <p class="card-category"> Stored</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text-secondary">
+                                            <th>Model name</th>
+                                            <th>Prediction name</th>
+                                            <th>Username</th>
+                                            <th>Input</th>
+                                            <th>Date</th>
+                                            <th>Prediction result</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let prediction of predictions">
+                                                <td>
+                                                    <h4>{{prediction.modelName}}</h4>
+                                                </td>
+                                                <td>
+                                                    <h4>{{prediction.predictionName}}</h4>
+                                                </td>
+                                                <td>
+                                                    <h4>{{prediction.userName}}</h4>
+                                                </td>
+                                                <td> <button (click)="openDialog(prediction.predictionsList[0].input)" class="btn btn-success btn-round">VIEW</button>
+                                                </td>
+                                                <td>
+                                                    <h4>{{prediction.date}}</h4>
+                                                </td>
+                                                <td>
+                                                    <h4>{{prediction.predictionsList[0].prediction}}</h4>
+                                                </td>
+    
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

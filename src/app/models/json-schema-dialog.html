@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Json Schema Form</h4>
+        <p class="card-category">Values</p>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-hover">
+            <thead class="text-info">
+                <th>Key</th>
+                <th>Label</th>
+                <th>Type</th>
+                <th>Required</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.schema">
+                    <td><h4>{{item.key}}</h4></td>
+                    <td><h4>{{item.templateOptions.label}}</h4></td>
+                    <td><h4>{{item.templateOptions.type}}</h4></td>
+                    <td><h4>{{item.templateOptions.required}}</h4></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+  

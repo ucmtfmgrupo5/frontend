@@ -1,0 +1,164 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <i class="material-icons gray-icon">add</i>
+                        <h3>New</h3>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="card-body">
+
+                    <form (submit)="submit()" [formGroup]="modelForm">
+                        <div class="form-group">
+                            <label for="modelName">Model name</label>
+                            <input type="text" class="form-control" formControlName="modelName">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="modelDescription">Model description</label>
+                            <input type="text" class="form-control" formControlName="modelDescription">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="objectName">Object name</label>
+                            <input type="text" class="form-control" formControlName="objectName">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repositoryName">Repository name</label>
+                            <input type="text" class="form-control" formControlName="repositoryName">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Json Schema </label>
+                            <div>
+                                <label class="btn btn-info" for="jsonSchema">Upload</label>
+                                <input (change)="onFileSelect($event)" formControlName="jsonSchema" id="jsonSchema" type="file" class="form-control">
+                            </div>
+                           
+                        </div>
+
+                        <div class="form-group">
+                            <a class="btn btn-primary" (click)="addDependency()">Add Dependency</a>
+                        </div>
+
+                        <div formArrayName="dependencyList"
+                            *ngFor="let dependency of dependencyList.controls; let i = index">
+                            <div [formGroupName]="i">
+                                <div class="form-group row">
+                                    <label class="col-md-1" [attr.for]="'dependency' + i">Dependency</label>
+                                    <div class="col-md-3">
+                                        <input type="text" [attr.id]="'dependency' + i" class="form-control"
+                                            formControlName="name">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-danger" (click)="removeDependency(i)">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success" [disabled]="modelForm.invalid">Submit</button>
+                        <button type="button" class="btn btn-default" (click)="refresh()">Refresh</button>
+
+                    </form>
+
+
+                </div>
+
+
+
+
+            </mat-expansion-panel>
+        </mat-accordion>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h2 class="card-title ">Models</h2>
+                        <p class="card-category"> Stored</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr *ngFor="let model of models">
+                                        <td>
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <i class="material-icons gray-icon">model_training</i>
+                                                            <h3>{{model.modelName}}</h3>
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            {{model.modelDescription}}
+                                                        </mat-panel-description>
+                                                    </mat-expansion-panel-header>
+                                                    <div class="card-body table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead class="text-secondary">
+                                                                <th>Object name</th>
+                                                                <th>Repository name</th>
+                                                                <th>Dependencies</th>
+                                                                <th>Json Schema</th>
+
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h4>{{model.objectName}}</h4>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h4>{{model.repositoryName}}</h4>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div
+                                                                            *ngFor="let dependency of model.dependencies">
+                                                                            <h5>{{dependency.name}}</h5>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td> <button class="btn btn-success btn-round"
+                                                                            (click)="schemaClick(model.modelName)">VIEW</button>
+                                                                    </td>
+                                                                    <td> <button
+                                                                            class="btn btn-warning btn-round">UPDATE</button>
+                                                                        <button
+                                                                            (click)="deleteModel(model)" class="btn btn-danger btn-round">DELETE</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+
+
+
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
